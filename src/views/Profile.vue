@@ -38,6 +38,7 @@
 <script>
 import Modal from "../components/Modal";
 import adminIcon from "../assets/Icons/user-crown-light.svg";
+
 export default {
   name: "Profile",
   components: {
@@ -90,6 +91,7 @@ export default {
   },
 };
 </script>
+
 <style lang="scss" scoped>
 .profile {
   .container {
