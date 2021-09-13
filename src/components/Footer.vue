@@ -31,7 +31,7 @@
               >Create Post</router-link
             >
             <router-link v-if="!user" class="link" :to="{ name: 'Login' }"
-              >Login In / Register</router-link
+              >Login / Register</router-link
             >
           </ul>
         </div>
