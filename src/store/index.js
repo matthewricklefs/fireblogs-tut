@@ -31,8 +31,14 @@ export default new Vuex.Store({
         blogDate: "May 1, 2021",
       },
     ],
+    blogHTML: "Write your blog title here...",
+    blogTitle: "",
+    blogPhotoName: "",
+    blogPhotoFileURL: null,
+    blogPhotoPreview: null,
     editPost: null,
     user: null,
+    proflileAdmin: null,
     profileEmail: null,
     profileFirstName: null,
     profileLastName: null,
@@ -49,6 +55,9 @@ export default new Vuex.Store({
     },
     updateUser(state, payload) {
       state.user = payload;
+    },
+    setProfileAdmin(state, payload) {
+      state.profileAdmin = payload;
     },
     setProfileInfo(state, doc) {
       state.profileId = doc.id;
@@ -73,14 +82,17 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    async getCurrentUser({ commit }) {
+    async getCurrentUser({ commit }, user) {
       const dataBase = await db
         .collection("users")
         .doc(firebase.auth().currentUser.uid);
       const dbResults = await dataBase.get();
       commit("setProfileInfo", dbResults);
       commit("setProfileInitials");
-      console.log(dbResults);
+
+      const token = await user.getIdTokenResult();
+      const admin = await token.claims.admin;
+      commit("setProfileAdmin", admin);
     },
     async updateUserSettings({ commit, state }) {
       const dataBase = await db.collection("users").doc(state.profileId);
