@@ -6,7 +6,7 @@
       </div>
 
       <div>
-        <div class="icon">
+        <div @click="deletePost" class="icon">
           <Delete class="delete" />
         </div>
       </div>
@@ -21,7 +21,10 @@
         }}
       </h6>
 
-      <router-link class="link" to="#">
+      <router-link
+        class="link"
+        :to="{ name: 'ViewBlog', params: { blogid: this.post.blogID } }"
+      >
         View The Post
         <Arrow class="arrow" />
       </router-link>
@@ -41,6 +44,11 @@ export default {
     Arrow,
     Edit,
     Delete,
+  },
+  methods: {
+    deletePost() {
+      this.$store.dispatch("deletePost", this.post.blogID);
+    },
   },
   computed: {
     editPost() {

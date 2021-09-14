@@ -1,5 +1,5 @@
 <template>
-  <div class="post-view">
+  <div class="post-view" v-if="currentBlog">
     <div class="container quillWrapper">
       <h2>{{ this.currentBlog[0].blogTitle }}</h2>
       <h4>
