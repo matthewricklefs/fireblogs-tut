@@ -41,7 +41,7 @@
       </div>
 
       <div class="blog-actions">
-        <button>Publish Blog</button>
+        <button @click="uploadBlog">Publish Blog</button>
         <router-link :to="{ name: 'BlogPreview' }" class="router-button">
           Post Preview
         </router-link>
@@ -101,6 +101,27 @@ export default {
           resetUploader();
         }
       );
+    },
+    uploadBlog() {
+      if (this.blogTitle.length !== 0 && this.blogHTML.length !== 0) {
+        if (this.file) {
+          //
+          return;
+        }
+        this.error = true;
+        this.errorMsg = "Please ensure you uploaded a cover photo!";
+
+        setTimeout(() => {
+          this.error = false;
+        }, 5000);
+      }
+      this.error = true;
+      this.errorMsg = "Please ensure Blog Title & Blog Post has been filled!";
+
+      setTimeout(() => {
+        this.error = false;
+      }, 5000);
+      return;
     },
   },
   computed: {
