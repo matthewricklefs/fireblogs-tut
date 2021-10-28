@@ -29,7 +29,7 @@
           >
             Preview Photo
           </button>
-          <span>File Chosen: {this.$store.state.blogPhotoName}</span>
+          <span>File Chosen: {{ this.$store.state.blogPhotoName }}</span>
         </div>
       </div>
 
@@ -111,7 +111,7 @@ export default {
       if (this.blogTitle.length !== 0 && this.blogHTML.length !== 0) {
         if (this.file) {
           this.loading = true;
-          const storageRef = firebase.storage.ref();
+          const storageRef = firebase.storage().ref();
           const docRef = storageRef.child(
             `documents/BlogCoverPhotos/${this.$store.state.blogPhotoName}`
           );

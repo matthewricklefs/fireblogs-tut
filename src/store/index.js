@@ -18,7 +18,7 @@ export default new Vuex.Store({
     blogPhotoPreview: null,
     editPost: null,
     user: null,
-    proflileAdmin: null,
+    profileAdmin: null,
     profileEmail: null,
     profileFirstName: null,
     profileLastName: null,
@@ -27,12 +27,29 @@ export default new Vuex.Store({
     profileInitials: null,
   },
   getters: {
+    user: (state) => (state.user ? state.user : null),
+    admin: (state) => (state.profileAdmin ? state.user : null),
+    profileFirstName: (state) =>
+      state.profileFirstName ? state.profileFirstName : null,
+    profileLastName: (state) =>
+      state.profileLastName ? state.profileLastName : null,
+    profileUsername: (state) =>
+      state.profileUsername ? state.profileUsername : null,
+    profileEmail: (state) => (state.profileEmail ? state.profileEmail : null),
+
+    example: (state, getters) =>
+      `${getters.profileFirstName} ${state.profileId}`,
+    // This is an example of extending the scope of a getter to global getters and global states
+
     blogPostsFeed(state) {
       return state.blogPosts.slice(0, 2);
     },
     blogPostsCards(state) {
       return state.blogPosts.slice(2, 6);
     },
+
+    profileInitials: (state) =>
+      state.profileInitials ? state.profileInitials : "",
   },
   mutations: {
     newBlogPost(state, payload) {

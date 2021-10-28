@@ -10,7 +10,7 @@
         <ul v-show="!mobile">
           <router-link class="link" :to="{ name: 'Home' }">Home</router-link>
           <router-link class="link" :to="{ name: 'Blogs' }">Blogs</router-link>
-          <router-link v-if="admin" class="link" :to="{ name: 'CreatePost' }"
+          <router-link v-if="!admin" class="link" :to="{ name: 'CreatePost' }"
             >Create Post</router-link
           >
           <router-link v-if="!user" class="link" :to="{ name: 'Login' }"
@@ -24,20 +24,20 @@
           class="profile"
           ref="profile"
         >
-          <span>{{ this.$store.state.profileInitials }}</span>
+          <span>{{ initials }}</span>
           <div v-show="profileMenu" class="profile-menu">
             <div class="info">
-              <p class="initials">{{ this.state.profileInitials }}</p>
+              <p class="initials">{{ initials }}</p>
               <div class="right">
                 <p>
-                  {{ this.$store.state.profileFirstName }}
-                  {{ this.$store.state.profileLastName }}
+                  {{ profileFirstName }}
+                  {{ profileLastName }}
                 </p>
                 <p>
-                  {{ this.$store.state.profileUsername }}
+                  {{ profileUsername }}
                 </p>
                 <p>
-                  {{ this.$store.state.profileEmail }}
+                  {{ profileEmail }}
                 </p>
               </div>
             </div>
@@ -91,6 +91,8 @@ import signOutIcon from "../assets/Icons/sign-out-alt-regular.svg";
 import firebase from "firebase/app";
 import "firebase/auth";
 
+import { mapGetters } from "vuex";
+
 export default {
   name: "navigation",
   components: {
@@ -98,6 +100,17 @@ export default {
     userIcon,
     adminIcon,
     signOutIcon,
+  },
+  computed: {
+    ...mapGetters({
+      initials: "profileInitials",
+      user: "user",
+      admin: "admin",
+      profileFirstName: "profileFirstName",
+      profileLastName: "profileLastName",
+      profileUsername: "profileUsername",
+      profileEmail: "profileEmail",
+    }),
   },
   data() {
     return {
@@ -137,14 +150,6 @@ export default {
       if (e.target === this.$refs.profile) {
         this.profileMenu = !this.profileMenu;
       }
-    },
-  },
-  computed: {
-    user() {
-      return this.$store.state.user;
-    },
-    admin() {
-      return this.$store.state.profileAdmin;
     },
   },
 };
